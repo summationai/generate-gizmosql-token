@@ -8,7 +8,7 @@ if ! command -v openssl &> /dev/null; then
     exit 1
 fi
 
-SUBJECT_ALT_NAME=${1:-"DNS:$(hostname),DNS:host.docker.internal,DNS:localhost,DNS:example.com,DNS:another.example.com,IP:127.0.0.1"}
+SUBJECT_ALT_NAME=${1:-"DNS:production-fanatics-ducklake-1.summation.com,DNS:host.docker.internal,IP:127.0.0.1"}
 
 # Generate Root CA key and certificate
 openssl genrsa -out root-ca.key 4096
@@ -25,7 +25,7 @@ for i in 0 1; do
     chmod 600 cert${i}.key
 
     openssl req -new -sha256 -key cert${i}.key \
-        -subj "/C=US/ST=CA/O=MyOrg, Inc./CN=localhost" \
+        -subj "/C=US/ST=CA/O=Summation, Inc./CN=localhost" \
         -config <(echo "[req]
 distinguished_name=req_distinguished_name
 [req_distinguished_name]
